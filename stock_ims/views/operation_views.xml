@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 1. Receipts Specialized List View -->
+    <record id="view_picking_tree_ims_receipts" model="ir.ui.view">
+        <field name="name">stock.picking.tree.ims.receipts</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-success="state == 'done'">
+                <field name="name" string="Reference"/>
+                <field name="location_id" string="From"/>
+                <field name="location_dest_id" string="To"/>
+                <field name="partner_id" string="Contact"/>
+                <field name="scheduled_date" string="Schedule date"/>
+                <field name="state" string="Status" widget="badge" decoration-success="state == 'assigned'" decoration-info="state == 'draft'"/>
+                <button name="action_ims_validate" string="Validate" type="object" class="btn-primary" invisible="state != 'assigned'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Receipts Action -->
+    <record id="action_ims_receipts" model="ir.actions.act_window">
+        <field name="name">Receipts</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('picking_type_code', '=', 'incoming')]</field>
+        <field name="context">{'default_picking_type_code': 'incoming'}</field>
+        <field name="view_id" ref="view_picking_tree_ims_receipts"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Receipt
+            </p>
+        </field>
+    </record>
+
+    <!-- 2. Delivery Specialized List View -->
+    <record id="view_picking_tree_ims_deliveries" model="ir.ui.view">
+        <field name="name">stock.picking.tree.ims.deliveries</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-success="state == 'done'">
+                <field name="name" string="Reference"/>
+                <field name="location_id" string="From"/>
+                <field name="location_dest_id" string="To"/>
+                <field name="partner_id" string="Contact"/>
+                <field name="scheduled_date" string="Schedule date"/>
+                <field name="state" string="Status" widget="badge" decoration-success="state == 'assigned'" decoration-info="state == 'draft'"/>
+                <button name="action_ims_validate" string="Validate" type="object" class="btn-primary" invisible="state != 'assigned'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Delivery Action -->
+    <record id="action_ims_deliveries" model="ir.actions.act_window">
+        <field name="name">Delivery</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('picking_type_code', '=', 'outgoing')]</field>
+        <field name="context">{'default_picking_type_code': 'outgoing'}</field>
+        <field name="view_id" ref="view_picking_tree_ims_deliveries"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Delivery
+            </p>
+        </field>
+    </record>
+
+    <!-- 3. Internal Transfers Specialized List View -->
+    <record id="view_picking_tree_ims_internal" model="ir.ui.view">
+        <field name="name">stock.picking.tree.ims.internal</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-success="state == 'done'">
+                <field name="name" string="Reference"/>
+                <field name="location_id" string="From"/>
+                <field name="location_dest_id" string="To"/>
+                <field name="scheduled_date" string="Schedule date"/>
+                <field name="state" string="Status" widget="badge"/>
+                <button name="action_ims_validate" string="Validate" type="object" class="btn-primary" invisible="state != 'assigned'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Internal Transfers Action -->
+    <record id="action_ims_internal_transfers" model="ir.actions.act_window">
+        <field name="name">Internal Transfers</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('picking_type_code', '=', 'internal')]</field>
+        <field name="context">{'default_picking_type_code': 'internal'}</field>
+        <field name="view_id" ref="view_picking_tree_ims_internal"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Internal Transfer
+            </p>
+        </field>
+    </record>
+
+    <!-- Stock Adjustments Action -->
+    <record id="action_ims_inventory_adjustment" model="ir.actions.act_window">
+        <field name="name">Inventory Adjustments</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Inventory Adjustment
+            </p>
+        </field>
+    </record>
+
+    <!-- Move History Action -->
+    <record id="action_ims_move_history" model="ir.actions.act_window">
+        <field name="name">Move History</field>
+        <field name="res_model">stock.move.line</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View stock movement history
+            </p>
+        </field>
+    </record>
+</odoo>

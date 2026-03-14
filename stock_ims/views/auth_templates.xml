@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ims_otp_reset_password" inherit_id="auth_signup.reset_password" name="IMS OTP Reset Password">
+        <xpath expr="//form" position="replace">
+            <form class="oe_reset_password_form" role="form" method="post" t-if="not message">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                
+                <div class="mb-3 field-login">
+                    <label for="login" class="form-label">Email</label>
+                    <input type="text" name="login" t-att-value="login" id="login" class="form-control" placeholder="Email" required="required" autofocus="autofocus" t-att-readonly="'readonly' if login else None"/>
+                </div>
+
+                <div class="mb-3 field-otp" id="otp_div" style="display:none;">
+                    <label for="otp" class="form-label">6-Digit OTP</label>
+                    <input type="text" name="otp" id="otp" class="form-control" placeholder="Enter OTP sent to your email" maxlength="6"/>
+                </div>
+
+                <div class="mb-3 field-password" id="password_div" style="display:none;">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" name="password" id="password" class="form-control" t-att-required="'required' if False else None"/>
+                </div>
+
+                <p class="alert alert-danger" t-if="error" role="alert">
+                    <t t-esc="error"/>
+                </p>
+
+                <div class="d-grid gap-2">
+                    <button type="button" id="btn_send_otp" class="btn btn-primary">Send OTP</button>
+                    <button type="submit" id="btn_reset_password" class="btn btn-primary" style="display:none;">Confirm Reset</button>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <a t-if="not token" t-attf-href="/web/login?{{ keep_query() }}">Back to Login</a>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+                    const btnSendOtp = document.getElementById('btn_send_otp');
+                    const btnReset = document.getElementById('btn_reset_password');
+                    const otpDiv = document.getElementById('otp_div');
+                    const passDiv = document.getElementById('password_div');
+                    const loginInput = document.getElementById('login');
+
+                    if (btnSendOtp) {
+                        btnSendOtp.addEventListener('click', async function() {
+                            const email = loginInput.value;
+                            if (!email) {
+                                alert('Please enter your email.');
+                                return;
+                            }
+                            
+                            const response = await fetch('/ims/request_otp', {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({params: {email: email}})
+                            });
+                            const data = await response.json();
+                            
+                            if (data.result &amp;&amp; data.result.status === 'sent') {
+                                btnSendOtp.style.display = 'none';
+                                btnReset.style.display = 'block';
+                                otpDiv.style.display = 'block';
+                                passDiv.style.display = 'block';
+                                alert('OTP sent! Please check your email.');
+                            } else {
+                                alert('User not found or error sending OTP.');
+                            }
+                        });
+                    }
+                });
+            </script>
+        </xpath>
+    </template>
+</odoo>

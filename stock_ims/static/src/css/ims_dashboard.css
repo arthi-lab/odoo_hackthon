@@ -1,0 +1,124 @@
+/* Main Kanban Container - Target both standard and custom classes */
+.o_kanban_renderer.o_ims_dashboard_kanban,
+.o_ims_dashboard_kanban .o_kanban_renderer {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    padding: 30px !important;
+    background-color: #f8f9fa !important;
+    width: 100% !important;
+}
+
+/* Force cards to be side-by-side (2 per row) */
+.o_kanban_renderer.o_ims_dashboard_kanban .o_kanban_record,
+.o_ims_dashboard_kanban .o_kanban_record {
+    width: 46% !important;
+    min-width: 450px !important;
+    max-width: 700px !important;
+    flex: 0 0 46% !important;
+    margin: 15px !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.o_ims_dashboard_card {
+    border: 2px solid #ff5a5f !important;
+    border-radius: 40px !important;
+    padding: 35px !important;
+    background: white !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+    min-height: 220px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+.o_ims_dashboard_card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.o_ims_card_title {
+    font-size: 34px !important;
+    font-weight: 500 !important;
+    color: #ff5a5f !important;
+    margin-bottom: 25px !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.o_ims_card_content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+}
+
+.o_ims_content_left {
+    flex: 0 0 250px !important;
+    margin-right: 40px !important;
+}
+
+.o_ims_dashboard_card button {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font: inherit !important;
+    cursor: pointer !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.o_ims_count_box {
+    border: 2px solid #ff5a5f !important;
+    border-radius: 20px !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    color: #444 !important;
+    white-space: nowrap !important;
+    background: white !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.o_ims_count_box:hover {
+    background-color: #fff1f1 !important;
+}
+
+.o_ims_count_box span {
+    font-size: 26px !important;
+    font-weight: 600 !important;
+    margin-right: 12px !important;
+}
+
+.o_ims_stats_container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+.o_ims_stat_line {
+    font-size: 19px !important;
+    color: #555 !important;
+    text-align: left !important;
+    display: block !important;
+    white-space: nowrap !important;
+}
+
+.o_ims_stat_line:hover {
+    color: #ff5a5f !important;
+}
+
+.o_ims_stat_line strong {
+    font-size: 20px !important;
+    margin-right: 8px !important;
+    font-weight: 600 !important;
+}
+
+.o_ims_stat_line.text-danger strong {
+    color: #ff5a5f !important;
+}

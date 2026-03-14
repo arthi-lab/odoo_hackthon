@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_ims_root"
+              name="IMS"
+              sequence="10"
+              web_icon="stock,static/description/icon.png"/>
+
+    <!-- 1. Dashboard -->
+    <menuitem id="menu_ims_dashboard"
+              name="Dashboard"
+              parent="menu_ims_root"
+              sequence="10"/>
+
+    <menuitem id="menu_ims_dashboard_action"
+              name="Snapshot"
+              parent="menu_ims_dashboard"
+              action="action_ims_dashboard"
+              sequence="1"/>
+
+    <!-- 2. Operations -->
+    <menuitem id="menu_ims_operations_root"
+              name="Operations"
+              parent="menu_ims_root"
+              sequence="20"/>
+
+    <menuitem id="menu_ims_receipts"
+              name="Receipts"
+              parent="menu_ims_operations_root"
+              action="action_ims_receipts"
+              sequence="10"/>
+
+    <menuitem id="menu_ims_deliveries"
+              name="Delivery Orders"
+              parent="menu_ims_operations_root"
+              action="action_ims_deliveries"
+              sequence="20"/>
+
+    <menuitem id="menu_ims_adjustment"
+              name="Stock Adjustments"
+              parent="menu_ims_operations_root"
+              action="action_ims_inventory_adjustment"
+              sequence="30"/>
+
+    <!-- 3. Products (formerly Stock) -->
+    <menuitem id="menu_ims_stock_root"
+              name="Products"
+              parent="menu_ims_root"
+              sequence="30"/>
+
+    <menuitem id="menu_ims_products"
+              name="Products"
+              parent="menu_ims_stock_root"
+              action="action_ims_product_template"
+              sequence="10"/>
+
+    <menuitem id="menu_ims_category"
+              name="Categories"
+              parent="menu_ims_stock_root"
+              action="action_ims_product_category"
+              sequence="20"/>
+
+    <!-- 4. Move History -->
+    <menuitem id="menu_ims_move_history_top"
+              name="Move History"
+              parent="menu_ims_root"
+              action="action_ims_move_history"
+              sequence="40"/>
+
+    <!-- 5. Settings -->
+    <menuitem id="menu_ims_settings_root"
+              name="Settings"
+              parent="menu_ims_root"
+              sequence="50"/>
+
+    <menuitem id="menu_ims_warehouse"
+              name="Warehouse"
+              parent="menu_ims_settings_root"
+              action="action_ims_warehouse"
+              sequence="10"/>
+
+    <menuitem id="menu_ims_location"
+              name="Locations"
+              parent="menu_ims_settings_root"
+              action="action_ims_location"
+              sequence="20"/>
+
+    <menuitem id="menu_ims_reordering"
+              name="Reordering Rules"
+              parent="menu_ims_settings_root"
+              action="action_ims_orderpoint"
+              sequence="30"/>
+
+</odoo>

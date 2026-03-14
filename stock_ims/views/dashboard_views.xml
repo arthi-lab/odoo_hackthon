@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mockup-Matched Dashboard for CE -->
+    <record id="stock_ims_dashboard_kanban_view" model="ir.ui.view">
+        <field name="name">stock.ims.dashboard.kanban.view</field>
+        <field name="model">stock.picking.type</field>
+        <field name="arch" type="xml">
+            <kanban class="o_ims_dashboard_kanban" create="false" sample="1">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="count_picking_ready"/>
+                <field name="count_picking_draft"/>
+                <field name="count_picking_waiting"/>
+                <field name="count_picking_late"/>
+                <field name="count_picking"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="o_ims_dashboard_card shadow-sm mb-4">
+                            <div class="o_ims_card_title">
+                                <t t-if="record.code.raw_value == 'incoming'">Receipt</t>
+                                <t t-elif="record.code.raw_value == 'outgoing'">Delivery</t>
+                                <t t-else=""><t t-esc="record.name.value"/></t>
+                            </div>
+                            <div class="o_ims_card_content d-flex align-items-center">
+                                <div class="o_ims_content_left">
+                                    <button name="get_action_picking_tree_ready" type="object" class="o_ims_count_box">
+                                        <span><t t-esc="record.count_picking_ready.value"/></span>
+                                        to <t t-if="record.code.raw_value == 'incoming'">receive</t>
+                                        <t t-elif="record.code.raw_value == 'outgoing'">Deliver</t>
+                                        <t t-else="">Transfer</t>
+                                    </button>
+                                </div>
+                                <div class="o_ims_content_right">
+                                    <div class="o_ims_stats_container">
+                                        <button name="get_action_picking_tree_late" type="object" class="o_ims_stat_line text-danger">
+                                            <strong><t t-esc="record.count_picking_late.value"/></strong> Late
+                                        </button>
+                                        <button t-if="record.code.raw_value == 'outgoing'" name="get_action_picking_tree_waiting" type="object" class="o_ims_stat_line">
+                                            <strong><t t-esc="record.count_picking_waiting.value"/></strong> waiting
+                                        </button>
+                                        <button name="get_stock_picking_action_picking_type" type="object" class="o_ims_stat_line">
+                                            <strong><t t-esc="record.count_picking.value"/></strong> operations
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Main Dashboard Action pointing to custom Kanban view -->
+    <record id="action_ims_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="stock_ims_dashboard_kanban_view"/>
+        <field name="domain">[('code', 'in', ('incoming', 'outgoing'))]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                IMS Dashboard
+            </p>
+        </field>
+    </record>
+
+</odoo>
