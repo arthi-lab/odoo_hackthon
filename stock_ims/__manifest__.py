@@ -12,7 +12,7 @@
         - Inventory Dashboard
     """,
     'category': 'Inventory/Inventory',
-    'author': 'Antigravity',
+    'author': 'Aarthi',
     'depends': ['stock', 'product', 'mail', 'auth_signup'],
     'data': [
         'security/ir.model.access.csv',
